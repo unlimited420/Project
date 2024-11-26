@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>After-School Activities</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>After-School Activities</h1>
+            <p>Explore and book classes for your child today!</p>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search for activities...">
+                <button id="search-button">Search</button>
+            </div>
+        </header>
+        <nav>
+            <a href="#activities">Activities</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+        <main>
+            <div v-for="activity in activities" :key="activity.id" class="activity">
+                <figure>
+                    <img :src="activity.image" :alt="activity.name">
+                </figure>
+                <h3>{{ activity.name }}</h3>
+                <p>Time: {{ activity.time }}</p>
+                <p>Age Group: {{ activity.ageGroup }}</p>
+                <p>Price: ${{ activity.price }}</p>
+                <button @click="bookActivity(activity)">Book Now</button>
+            </div>
+        </main>
+        <footer>
+            <p>© 2024 After-School Activities App</p>
+        </footer>
+
+        <!-- Booking Modal -->
+        <div v-if="selectedActivity" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="closeModal">&times;</span>
+                <h2>Checkout</h2>
+                <p>You are booking:</p>
+                <h3>{{ selectedActivity.name }}</h3>
+                <p>Time: {{ selectedActivity.time }}</p>
+                <p>Price: ${{ selectedActivity.price }}</p>
+                <button @click="showFormModal">Confirm Booking</button>
+            </div>
+        </div>
+
+        <!-- Form Modal -->
+        <div v-if="showForm" class="modal">
+            <div class="modal-content form-modal">
+                <h2>Get in Touch</h2>
+                <form @submit.prevent="submitForm">
+                    <div class="form-group">
+                        <input type="text" v-model="formData.name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" v-model="formData.email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div v-if="showConfirmation" class="modal">
+            <div class="modal-content confirmation-modal">
+                <h2>Booking Confirmed!</h2>
+                <p>Thank you for booking:</p>
+                <h3>{{ lastConfirmedActivity.name }}</h3>
+                <p>A confirmation has been sent to: <strong>{{ formData.email }}</strong></p>
+                <button @click="closeConfirmationModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                activities: [
+                    {
+                        id: 1,
+                        name: "Art Class",
+                        time: "4:00 PM - 5:30 PM",
+                        image: "images/art.jpg",
+                        ageGroup: "6-12 years",
+                        price: 20
+                    },
+                    {
+                        id: 2,
+                        name: "Soccer Training",
+                        time: "5:00 PM - 6:30 PM",
+                        image: "images/Soccer.jpg",
+                        ageGroup: "8-14 years",
+                        price: 25
+                    },                    {
+                        id: 3,
+                        name: "Music Lessons",
+                        time: "6:00 PM - 7:30 PM",
+                        image: "images/Music.jpg",
+                        ageGroup: "10-16 years",
+                        price: 30
+                    },
+                    {
+                        id: 4,
+                        name: "Accounting Lessons",
+                        time: "2:00 PM - 5:30 PM",
+                        image: "images/Accounting.jpg",
+                        ageGroup: "13-17 years",
+                        price: 35
+                    },
+                    {
+                        id: 5,
+                        name: "Business club",
+                        time: "4:00 PM - 5:30 PM",
+                        image: "images/Business.jpg",
+                        ageGroup: "14-19 years",
+                        price: 50
+                    },
+                    {
+                        id: 6,
+                        name: "Economics Club",
+                        time: "1:00 PM - 3:30 PM",
+                        image: "images/Economic.jpg",
+                        ageGroup: "14-19 years",
+                        price: 50
+                    },    
+                    {
+                        id: 7,
+                        name: "Boxing Class",
+                        time: "11:00 PM - 14:30 PM",
+                        image: "images/box.jpg",
+                        ageGroup: "12-18 years",
+                        price: 20
+                    },    
+                    {
+                        id: 8,
+                        name: "IT Class",
+                        time: "4:00 PM - 5:30 PM",
+                        image: "images/it.jpg",
+                        ageGroup: "13-18 years",
+                        price: 45
+                    },                    
+                    {
+                        id: 9,
+                        name: "Design Lesson",
+                        time: "10:00 PM - 12:30 PM",
+                        image: "images/Design.jpg",
+                        ageGroup: "13-17 years",
+                        price: 20
+                    },
+                    {
+                        id: 10,
+                        name: "Basketball Class",
+                        time: "11:00 PM - 15:30 PM",
+                        image: "images/Basketball.jpg",
+                        ageGroup: "13-19 years",
+                        price: 20
+                    }
+                ],
+                selectedActivity: null,
+                lastConfirmedActivity: null,
+                showForm: false,
+                showConfirmation: false,
+                formData: {
+                    name: '',
+                    email: ''
+                }
+            },
+            methods: {
+                bookActivity(activity) {
+                    this.selectedActivity = activity;
+                },
+                closeModal() {
+                    this.selectedActivity = null;
+                },
+                showFormModal() {
+                    this.showForm = true;
+                },
+                submitForm() {
+                    this.lastConfirmedActivity = this.selectedActivity;
+                    this.showForm = false;
+                    this.showConfirmation = true;
+                },
+                closeConfirmationModal() {
+                    this.showConfirmation = false;
+                    this.formData.name = '';
+                    this.formData.email = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
