@@ -19,7 +19,7 @@
         </header>
         <nav>
             <a href="#activities">Activities</a>
-            <a href="#contact">Contact Us</a>
+            <a @click="openContactModal" href="#contact">Contact Us</a>
         </nav>
         <main>
             <div v-for="activity in activities" :key="activity.id" class="activity">
@@ -36,6 +36,7 @@
         <footer>
             <p>© 2024 University Activities App</p>
         </footer>
+
         <!-- Contact Us Modal -->
         <div v-if="showContact" class="modal">
             <div class="modal-content contact-modal">
@@ -62,7 +63,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
         <!-- Booking Modal -->
         <div v-if="selectedActivity" class="modal">
             <div class="modal-content">
@@ -193,6 +194,12 @@
                 lastConfirmedActivity: null,
                 showForm: false,
                 showConfirmation: false,
+                showContact: false,
+                contactData: {
+                    name: '',
+                    email: '',
+                    message: ''
+                },
                 formData: {
                     name: '',
                     email: ''
@@ -217,6 +224,19 @@
                     this.showConfirmation = false;
                     this.formData.name = '';
                     this.formData.email = '';
+                },
+                openContactModal() {
+                    this.showContact = true;
+                },
+                closeContactModal() {
+                    this.showContact = false;
+                },
+                submitContactForm() {
+                    alert(`Thank you for reaching out, ${this.contactData.name}! We will respond to your email at ${this.contactData.email}.`);
+                    this.contactData.name = '';
+                    this.contactData.email = '';
+                    this.contactData.message = '';
+                    this.showContact = false;
                 }
             }
         });
