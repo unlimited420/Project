@@ -13,8 +13,14 @@
             <h1>University Activities</h1>
             <p>Explore and book classes for your child today!</p>
             <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Search for activities...">
-                <button id="search-button">Search</button>
+                <input 
+                    type="text" 
+                    id="search-bar" 
+                    placeholder="Search for activities..." 
+                    v-model="searchQuery"
+                    @input="filterActivities"
+                >
+                <button id="search-button" @click="filterActivities">Search</button>
             </div>
         </header>
         <nav>
@@ -22,7 +28,7 @@
             <a @click="openContactModal" href="#contact">Contact Us</a>
         </nav>
         <main>
-            <div v-for="activity in activities" :key="activity.id" class="activity">
+            <div v-for="activity in filteredActivities" :key="activity.id" class="activity">
                 <figure>
                     <img :src="activity.image" :alt="activity.name">
                 </figure>
@@ -190,22 +196,28 @@
                         price: 20
                     }
                 ],
+                filteredActivities: [],
+                searchQuery: '',
                 selectedActivity: null,
                 lastConfirmedActivity: null,
                 showForm: false,
                 showConfirmation: false,
                 showContact: false,
-                contactData: {
-                    name: '',
-                    email: '',
-                    message: ''
-                },
-                formData: {
-                    name: '',
-                    email: ''
-                }
+                contactData: { name: '', email: '', message: '' },
+                formData: { name: '', email: '' }
+            },
+            created() {
+                this.filteredActivities = this.activities; // Initialize with all activities
             },
             methods: {
+                filterActivities() {
+                    const query = this.searchQuery.toLowerCase();
+                    this.filteredActivities = this.activities.filter(activity =>
+                        activity.name.toLowerCase().includes(query) ||
+                        activity.ageGroup.toLowerCase().includes(query) ||
+                        activity.time.toLowerCase().includes(query)
+                    );
+                },
                 bookActivity(activity) {
                     this.selectedActivity = activity;
                 },
@@ -243,3 +255,4 @@
     </script>
 </body>
 </html>
+
