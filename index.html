@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <title>After-School Activities</title>
+    <title>University Activities</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
         <header>
-            <h1>After-School Activities</h1>
+            <h1>University Activities</h1>
             <p>Explore and book classes for your child today!</p>
             <div class="search-container">
                 <input type="text" id="search-bar" placeholder="Search for activities...">
@@ -34,9 +34,35 @@
             </div>
         </main>
         <footer>
-            <p>© 2024 After-School Activities App</p>
+            <p>© 2024 University Activities App</p>
         </footer>
-
+        <!-- Contact Us Modal -->
+        <div v-if="showContact" class="modal">
+            <div class="modal-content contact-modal">
+                <span class="close" @click="closeContactModal">&times;</span>
+                <h2>Contact Us</h2>
+                <form @submit.prevent="submitContactForm">
+                    <div class="form-group">
+                        <input type="text" v-model="contactData.name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" v-model="contactData.email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea v-model="contactData.message" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="social-media">
+                    <h3>Follow us on</h3>
+                    <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">Instagram</a>
+                    <a href="https://youtube.com" target="_blank" class="social-icon">YouTube</a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </div>
         <!-- Booking Modal -->
         <div v-if="selectedActivity" class="modal">
             <div class="modal-content">
