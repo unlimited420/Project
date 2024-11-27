@@ -70,6 +70,16 @@
             </div>
         </div>
 
+        <!-- Contact Confirmation Modal -->
+        <div v-if="contactConfirmation" class="modal">
+            <div class="modal-content confirmation-modal">
+                <h2>Thank You!</h2>
+                <p>We have received your message, {{ contactData.name }}.</p>
+                <p>We will respond to your email at <strong>{{ contactData.email }}</strong> shortly.</p>
+                <button @click="closeContactConfirmation">Close</button>
+            </div>
+        </div>
+
         <!-- Booking Modal -->
         <div v-if="selectedActivity" class="modal">
             <div class="modal-content">
@@ -110,7 +120,6 @@
             </div>
         </div>
     </div>
-
     <script>
         new Vue({
             el: '#app',
@@ -195,7 +204,7 @@
                         ageGroup: "13-19 years",
                         price: 20
                     }
-                ],
+                    ],
                 filteredActivities: [],
                 searchQuery: '',
                 selectedActivity: null,
@@ -203,6 +212,7 @@
                 showForm: false,
                 showConfirmation: false,
                 showContact: false,
+                contactConfirmation: false, // New property for contact confirmation modal
                 contactData: { name: '', email: '', message: '' },
                 formData: { name: '', email: '' }
             },
@@ -244,15 +254,17 @@
                     this.showContact = false;
                 },
                 submitContactForm() {
-                    alert(`Thank you for reaching out, ${this.contactData.name}! We will respond to your email at ${this.contactData.email}.`);
+                    this.showContact = false; // Close the Contact Us modal
+                    this.contactConfirmation = true; // Show confirmation modal
+                },
+                closeContactConfirmation() {
+                    this.contactConfirmation = false; // Close contact confirmation modal
                     this.contactData.name = '';
                     this.contactData.email = '';
                     this.contactData.message = '';
-                    this.showContact = false;
                 }
             }
         });
     </script>
 </body>
 </html>
-
