@@ -25,7 +25,7 @@
         </header>
         <nav>
             <a href="#activities">Activities</a>
-            <a @click="openContactModal" href="#contact">Contact Us</a>
+            <a @click.prevent="openContactModal" href="#">Contact Us</a>
         </nav>
         <main>
             <div v-for="activity in filteredActivities" :key="activity.id" class="activity">
@@ -120,6 +120,7 @@
             </div>
         </div>
     </div>
+
     <script>
         new Vue({
             el: '#app',
@@ -137,14 +138,15 @@
                         id: 2,
                         name: "Soccer Training",
                         time: "5:00 PM - 6:30 PM",
-                        image: "images/Soccer.jpg",
+                        image: "images/soccer.jpg",
                         ageGroup: "8-14 years",
                         price: 25
-                    },                    {
+                    },
+                    {
                         id: 3,
                         name: "Music Lessons",
                         time: "6:00 PM - 7:30 PM",
-                        image: "images/Music.jpg",
+                        image: "images/music.jpg",
                         ageGroup: "10-16 years",
                         price: 30
                     },
@@ -152,15 +154,15 @@
                         id: 4,
                         name: "Accounting Lessons",
                         time: "2:00 PM - 5:30 PM",
-                        image: "images/Accounting.jpg",
+                        image: "images/accounting.jpg",
                         ageGroup: "13-17 years",
                         price: 35
                     },
                     {
                         id: 5,
-                        name: "Business club",
+                        name: "Business Club",
                         time: "4:00 PM - 5:30 PM",
-                        image: "images/Business.jpg",
+                        image: "images/business.jpg",
                         ageGroup: "14-19 years",
                         price: 50
                     },
@@ -168,43 +170,43 @@
                         id: 6,
                         name: "Economics Club",
                         time: "1:00 PM - 3:30 PM",
-                        image: "images/Economic.jpg",
+                        image: "images/economics.jpg",
                         ageGroup: "14-19 years",
                         price: 50
-                    },    
+                    },
                     {
                         id: 7,
                         name: "Boxing Class",
-                        time: "11:00 PM - 14:30 PM",
+                        time: "11:00 AM - 2:30 PM",
                         image: "images/box.jpg",
                         ageGroup: "12-18 years",
                         price: 20
-                    },    
+                    },
                     {
                         id: 8,
                         name: "IT Class",
                         time: "4:00 PM - 5:30 PM",
-                        image: "images/IT.jpg",
+                        image: "images/it.jpg",
                         ageGroup: "13-18 years",
                         price: 45
-                    },                    
+                    },
                     {
                         id: 9,
                         name: "Design Lesson",
-                        time: "10:00 PM - 12:30 PM",
-                        image: "images/Design.jpg",
+                        time: "10:00 AM - 12:30 PM",
+                        image: "images/design.jpg",
                         ageGroup: "13-17 years",
                         price: 20
                     },
                     {
                         id: 10,
                         name: "Basketball Class",
-                        time: "11:00 PM - 15:30 PM",
-                        image: "images/Basketball.jpg",
+                        time: "11:00 AM - 3:30 PM",
+                        image: "images/basketball.jpg",
                         ageGroup: "13-19 years",
                         price: 20
                     }
-                    ],
+                ],
                 filteredActivities: [],
                 searchQuery: '',
                 selectedActivity: null,
