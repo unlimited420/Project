@@ -68,7 +68,7 @@ header p {
   color: white;
 }
 
-/* Navigation */
+
 nav {
   background-color: #388e3c;
   padding: 10px;
@@ -142,7 +142,7 @@ main {
   background-color: #45a049;
 }
 
-/* Footer */
+
 footer {
   text-align: center;
   background-color: #4caf50;
@@ -213,12 +213,12 @@ footer {
 .contact-modal input[type="email"],
 .contact-modal textarea {
   width: 100%;
-  padding: 15px; /* Increased padding for larger input fields */
-  font-size: 18px; /* Larger font size for better readability */
+  padding: 15px; 
+  font-size: 18px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
-  box-sizing: border-box; /* Ensures consistent sizing across browsers */
+  box-sizing: border-box; 
 }
 
 .contact-modal input[type="text"]:focus,
@@ -226,7 +226,7 @@ footer {
 .contact-modal textarea:focus {
   border-color: #4caf50;
   outline: none;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow on focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); 
 }
 
 /* Confirmation Modal */

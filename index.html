@@ -70,7 +70,6 @@
             </div>
         </div>
 
-        <!-- Contact Confirmation Modal -->
         <div v-if="contactConfirmation" class="modal">
             <div class="modal-content confirmation-modal">
                 <h2>Thank You!</h2>
@@ -214,7 +213,7 @@
                 showForm: false,
                 showConfirmation: false,
                 showContact: false,
-                contactConfirmation: false, // New property for contact confirmation modal
+                contactConfirmation: false, 
                 contactData: { name: '', email: '', message: '' },
                 formData: { name: '', email: '' }
             },
@@ -256,7 +255,7 @@
                     this.showContact = false;
                 },
                 submitContactForm() {
-                    this.showContact = false; // Close the Contact Us modal
+                    this.showContact = false; 
                     this.contactConfirmation = true; // Show confirmation modal
                 },
                 closeContactConfirmation() {

@@ -1,7 +1,7 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 
-const connectionURL = 'your_mongo_connection_url'; // Replace with your MongoDB connection URL
+const connectionURL = 'mongodb://localhost:27017/'; 
 
 const client = new MongoClient(connectionURL, {
   useNewUrlParser: true,
@@ -10,14 +10,14 @@ const client = new MongoClient(connectionURL, {
 
 const app = express();
 
-// Middleware to serve static files from 'public' directory
+
 app.use(express.static('./public'));
 
-// Define a route to fetch data from MongoDB
+
 app.get('/data', async (req, res) => {
   try {
-    const database = client.db('your_database_name'); // Replace with your database name
-    const collection = database.collection('your_collection_name'); // Replace with your collection name
+    const database = client.db('project'); 
+    const collection = database.collection('your_collection_name'); 
 
     const data = await collection.find({}).toArray();
     res.json(data);
@@ -26,7 +26,6 @@ app.get('/data', async (req, res) => {
   }
 });
 
-// Connect to MongoDB and Start Server
 client.connect()
   .then(() => {
     console.log("Connected to MongoDB Atlas!");
@@ -39,5 +38,5 @@ client.connect()
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB Atlas:", error);
-    process.exit(1); // Exit process if MongoDB connection fails
+    process.exit(1);
   });
